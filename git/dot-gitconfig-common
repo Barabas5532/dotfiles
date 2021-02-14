@@ -1,0 +1,5 @@
+[alias]
+	s = status
+	su = submodule update --init --recursive
+[core]
+	excludesFile = ~/.gitignore

@@ -1,0 +1,210 @@
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+
+exec --no-startup-id st -n "dropdown" -e tmux new -s dropdown ipython
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 1000 300
+for_window [instance="dropdown"] move scratchpad
+bindsym $mod+n [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Input Mono Regular, Awesome 10
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# kill focused window
+bindsym $mod+Shift+x kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+a layout tabbed
+#bindsym $mod+d layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+semicolon focus parent
+
+# focus the child container
+#bindsym $mod+quote focus child
+
+set $workspace1 number 1
+set $workspace2 number 2
+set $workspace3 number 3
+set $workspace4 number 4
+set $workspace5 number 5
+set $workspace6 number 6
+set $workspace7 number 7
+set $workspace8 number 8
+set $workspace9 number 9
+set $workspace10 number 10
+
+# switch to workspace
+bindsym $mod+q workspace $workspace1
+bindsym $mod+w workspace $workspace2
+bindsym $mod+e workspace $workspace3
+bindsym $mod+r workspace $workspace4
+bindsym $mod+t workspace $workspace5
+bindsym $mod+y workspace $workspace6
+bindsym $mod+u workspace $workspace7
+bindsym $mod+i workspace $workspace8
+bindsym $mod+o workspace $workspace9
+bindsym $mod+p workspace $workspace10
+
+#put workspace 1-5 on the left screen, 6-10 on the right screen
+workspace 1  output DisplayPort-2
+workspace 2  output DisplayPort-2
+workspace 3  output DisplayPort-2
+workspace 4  output DisplayPort-2
+workspace 5  output DisplayPort-2
+workspace 6  output DisplayPort-1
+workspace 7  output DisplayPort-1
+workspace 8  output DisplayPort-1
+workspace 9  output DisplayPort-1
+workspace 10 output DisplayPort-1
+
+
+# move focused container to workspace
+bindsym $mod+Shift+q move container to workspace $workspace1
+bindsym $mod+Shift+w move container to workspace $workspace2
+bindsym $mod+Shift+e move container to workspace $workspace3
+bindsym $mod+Shift+r move container to workspace $workspace4
+bindsym $mod+Shift+t move container to workspace $workspace5
+bindsym $mod+Shift+y move container to workspace $workspace6
+bindsym $mod+Shift+u move container to workspace $workspace7
+bindsym $mod+Shift+i move container to workspace $workspace8
+bindsym $mod+Shift+o move container to workspace $workspace9
+bindsym $mod+Shift+p move container to workspace $workspace10
+
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+v restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+z exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#launch relevant application for workspace
+bindsym $mod+Return exec /home/barabas/programs/launchprogram.sh
+
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+#bindsym $mod+r mode "resize"
+
+
+#my stuff
+workspace_auto_back_and_forth yes
+hide_edge_borders smart
+#fix bug with origin
+for_window [title="Origin"] floating enable
+
+#start compositor
+#exec --no-startup-id compton
+#set background
+exec_always --no-startup-id /home/barabas/.fehbg
+#exec /home/barabas/scripts/i3lock_riced/riced-i3lock-start
+exec redshift -l 51:0
+
+#auto rename workspaces
+exec_always --no-startup-id /home/barabas/source/i3-renameworkspaces/i3-renameworkspaces.pl
+
+set $hilite     #cb4b16
+set $backgr     #eee8d5
+set $darker     #93a1a1
+set $fgtext     #657b83
+set $red        #dc322f
+set $violet     #6c71c4
+set $magenta    #d33682
+
+#class                  border  backg   text    indicator   childborder
+client.focused          $backgr $backgr $hilite $hilite     $backgr
+client.focused_inactive $darker $backgr $darker $hilite     $darker
+client.unfocused        $backgr $backgr $darker $hilite     $backgr
+#client.urgent           $red    $red    #999999 $red        $red
+#client.placeholder      $violet $violet $violet $violet     $violet 
+#client.background       $magenta
+
+default_border normal 2
+
+bindsym $mod+d exec i3-dmenu-desktop
+#-nb "$backgr" -nf "$fgtext" -sb "$backgr" -sf "$hilite" #only for dmenu-run
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    status_command i3status
+    bindsym button4 nop
+    bindsym button5 nop
+    colors {
+        background  $backgr
+        statusline  $fgtext
+        separator   $fgtext
+        #focused_background is not set, use background colour
+        #focused_statusline is not set, use statusline colour
+        #focused_separator is not set, use separator colour
+        #                    border  backgr  text
+        focused_workspace   $backgr $backgr $hilite 
+        active_workspace    $darker $backgr $fgtext
+        inactive_workspace  $backgr $backgr $fgtext
+        urgent_workspace    $red    $red    $base2
+        #binding mode not set, use urgent_workspace
+    }
+}

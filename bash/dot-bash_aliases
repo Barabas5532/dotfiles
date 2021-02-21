@@ -1,0 +1,41 @@
+# vim:syntax=bash
+
+#vim like prompt
+set -o vi
+#do not exit on Ctrl+D
+set -o ignoreeof
+
+alias ls='ls -Fh --color'
+
+#warn before overwrite
+alias cp='cp -i'
+alias mv='mv -i'
+
+cd() { builtin cd "$@" && ls; }
+
+BLUE="$(tput setaf 4)"
+CYAN="$(tput setaf 6)"
+VIOLET="$(tput setaf 13)"
+RESET="$(tput sgr0)"
+
+git_branch()
+{
+    git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /
+}
+
+PS1='[${BLUE}\u@\h${RESET}][${CYAN}$(git_branch)${RESET}][${VIOLET}\w${RESET}]\n\$ '
+
+export SUDO_EDITOR="vim"
+export EDITOR="vim"
+export VISUAL="vim"
+export BROWSER=/usr/bin/firefox
+export IVERILOG_DUMPER=lxt
+
+[ -r /usr/share/doc/pkgfile/command-not-found.bash ] && \
+source /usr/share/doc/pkgfile/command-not-found.bash
+
+[ -r /usr/share/bash-completion/bash_completion ] && \
+source /usr/share/bash-completion/bash_completion
+
+[ -r /etc/profile.d/autojump.sh ] && \
+source /etc/profile.d/autojump.sh

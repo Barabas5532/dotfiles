@@ -11,8 +11,18 @@ tags
 
 __pycache__
 venv
+.venv
 build
 
 # CLion
 cmake-build-*
-.idea
+
+# Qt Creator
+CMakeLists.txt.user
+
+# LibreOffice
+.~lock.*#
+
+# Jetbrains Fleet
+.cache/jb
+.fleet

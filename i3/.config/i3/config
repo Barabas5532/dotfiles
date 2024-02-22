@@ -2,6 +2,10 @@
 
 set $mod Mod4
 
+# Flutter integration testing works more reliable when the windnow doesn't get
+# resized
+for_window [class="shrapnel"] floating enable
+
 exec --no-startup-id st -n "dropdown" -e tmux new -s dropdown ipython
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 1000 300
@@ -204,7 +208,7 @@ bar {
         focused_workspace   $backgr $backgr $hilite 
         active_workspace    $darker $backgr $fgtext
         inactive_workspace  $backgr $backgr $fgtext
-        urgent_workspace    $red    $red    $base2
+        urgent_workspace    $red    $red    $backgr
         #binding mode not set, use urgent_workspace
     }
 }

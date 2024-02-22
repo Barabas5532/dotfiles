@@ -1,7 +1,4 @@
 [alias]
 	s = status
 	su = submodule update --init --recursive
-[core]
-	excludesFile = ~/.gitignore
-[commit]
-    verbose = true
+    c = commit

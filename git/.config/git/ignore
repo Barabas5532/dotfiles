@@ -13,6 +13,7 @@ __pycache__
 venv
 .venv
 build
+.ipynb_checkpoints
 
 # CLion
 cmake-build-*

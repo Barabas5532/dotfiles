@@ -9,7 +9,7 @@
 ;; (setq user-full-name "John Doe"
 ;;       user-mail-address "john@doe.com")
 
-(setq doom-font (font-spec :family "Iosevka Term SS18" :size 14))
+(setq doom-font (font-spec :family "Iosevka Term SS18" :size 13))
 
 (setq doom-theme 'doom-solarized-light)
 
@@ -21,6 +21,8 @@
 
 (setq scroll-margin 5)
 
+;; Never use tabs for indentation
+(setq-default indent-tabs-mode nil)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -53,3 +55,35 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(add-hook 'verilog-mode-hook (lambda () (progn
+                                          ;; No auto newline after semicolon
+                                          (setq verilog-auto-newline nil)
+                                          ;; Indentation
+                                          (setq verilog-case-indent 4)
+                                          (setq verilog-cexp-indent 1)
+                                          (setq verilog-indent-begin-after-if nil)
+                                          (setq verilog-indent-class-inside-pkg t)
+                                          (setq verilog-indent-declaration-macros nil)
+                                          (setq verilog-indent-ignore-multiline-defines t)
+                                          (setq verilog-indent-ignore-regexp nil)
+                                          (setq verilog-indent-level 4)
+                                          (setq verilog-indent-level-behavioral 4)
+                                          (setq verilog-indent-level-declaration 0)
+                                          (setq verilog-indent-level-directive 4)
+                                          (setq verilog-indent-level-module 0)
+                                          (setq verilog-indent-lists t)
+                                          (setq verilog-tab-always-indent nil)
+                                          ;; Alignment
+                                          (setq verilog-align-assign-expr nil)
+                                          (setq verilog-align-comment-distance 1)
+                                          (setq verilog-align-decl-expr-comments t)
+                                          (setq verilog-align-ifelse nil)
+                                          (setq verilog-align-typedef-regexp nil)
+                                          (setq verilog-align-typedef-words nil)
+                                          )))
+
+;; Disable automatic parentheses insertion. Sometimes is inserts to the wrong
+;; place in lisp, and often it just moves to the right instead of inserting a
+;; new parenthesis when one is already next to cursor.
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)

@@ -17,6 +17,7 @@ build
 
 # CLion
 cmake-build-*
+cmake-build
 
 # Qt Creator
 CMakeLists.txt.user
@@ -27,3 +28,18 @@ CMakeLists.txt.user
 # Jetbrains Fleet
 .cache/jb
 .fleet
+
+# IntelliJ IDEA, CLion, Android Studio
+#
+# While JetBrains claim that the .idea folder can be versioned and they do
+# generate a reasonable .gitignore inside this filder, in practice extensions
+# will create their own files that are not ignored by default, and even some
+# built-in types like vcs.xml can end up with relative paths that are different
+# across different machines.
+#
+# It is also ignored in every flutter project by default.
+.idea
+*.iml
+
+# FVM Version Cache
+.fvm/
